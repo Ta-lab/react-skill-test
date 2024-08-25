@@ -21,6 +21,7 @@ const QuestionSetup = ({ skill, setView }) => {
       setTimeout(() => setMessage(''), 3000);
       return;
     }
+    
 
     const payload = { skill, question, options, correctAnswer };
     try {
