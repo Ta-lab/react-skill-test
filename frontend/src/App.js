@@ -3,6 +3,7 @@ import UserInfo from './components/UserInfo';
 import TestScreen from './components/TestScreen';
 import QuestionSetup from './components/QuestionSetups';
 import QuestionList from './components/QuestionList';
+import ParticipantList from './components/ParticipantList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Card, Form, Alert } from 'react-bootstrap';
 
@@ -10,18 +11,18 @@ function App() {
   const [user, setUser] = useState('');
   const [role, setRole] = useState('');
   const [skill, setSkill] = useState('');
-  const [view, setView] = useState(''); // View can be 'setup', 'test', or 'list'
+  const [view, setView] = useState('');
   const [error, setError] = useState('');
 
   const handleViewChange = (newView) => {
-    if (!skill) {
+    if (!skill && newView !== 'dashboard') {
       setError('Please select a skill before proceeding.');
       setTimeout(() => {
-        setError(''); // Clear the error after 3 seconds
+        setError('');
       }, 3000);
       return;
     }
-    setError(''); // Clear the error if validation passes
+    setError('');
     setView(newView);
   };
 
@@ -75,6 +76,7 @@ function App() {
                       >
                         View Questions
                       </Button>
+                      <Button onClick={() => handleViewChange('dashboard')} variant="info" className="ms-2">Participants & Score Details</Button>
                     </>
                   )}
                   {role === 'taker' && (
@@ -92,6 +94,7 @@ function App() {
           {view === 'setup' && role === 'setter' && <QuestionSetup skill={skill} setView={setView} />}
           {view === 'list' && role === 'setter' && <QuestionList skill={skill} setView={setView} />}
           {view === 'test' && role === 'taker' && <TestScreen skill={skill} userName={user} setView={setView} />}
+          {view === 'dashboard' && role === 'setter' && <ParticipantList setView={setView} />} {/* Render the new component */}
         </>
       )}
     </Container>

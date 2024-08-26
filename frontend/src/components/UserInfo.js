@@ -6,28 +6,12 @@ const UserInfo = ({ setUser, setRole, setView }) => {
   const [selectedRole, setSelectedRole] = useState('');
   const [message, setMessage] = useState('');
 
-  // const handleRoleSelect = (role) => {
-  //   setSelectedRole(role);
-  // };
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
     if (message) {
       setMessage(''); // Clear the message if the user selects a role
     }
   };
-
-  // const handleSubmit = () => {
-  //   if (name.trim() && selectedRole) {
-  //     setUser(name);
-  //     setRole(selectedRole);
-  //     setView('');
-  //   } else {
-  //     setMessage("User information is missing.");
-  //     setTimeout(() => {
-  //       setMessage('');
-  //     }, 3000);
-  //   }
-  // };
 
   const handleSubmit = () => {
     if (name.trim() && selectedRole) {

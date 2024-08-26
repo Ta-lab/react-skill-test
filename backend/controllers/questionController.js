@@ -1,5 +1,8 @@
 let questions = { react: [], java: [] };
 
+let testAttempts = [];
+let nextTestAttemptId = 1;
+
 exports.addQuestion = (req, res) => {
   const { skill, question, options, correctAnswer } = req.body;
   if (questions[skill].length < 10) {
@@ -25,4 +28,21 @@ exports.deleteQuestion = (req, res) => {
   } else {
     res.status(404).send({ message: 'Question not found.' });
   }
+};
+
+exports.recordTestAttempt = (req, res) => {
+  const { participantName, skill, score } = req.body;
+  const testAttempt = { 
+    id: nextTestAttemptId++,
+    participantName,
+    skill,
+    score,
+    testDate: new Date(),
+  };
+  testAttempts.push(testAttempt);
+  res.status(200).send({ message: 'Test attempt recorded successfully.' });
+};
+
+exports.getParticipants = (req, res) => {
+  res.status(200).json(testAttempts);
 };

@@ -38,6 +38,20 @@ const TestScreen = ({ skill, userName, setView }) => {
     });
     setScore(correct);
     setSubmitted(true); // Set the submitted state to true to hide questions
+    recordTestAttempt(correct);
+  };
+
+  const recordTestAttempt = async (finalScore) => {
+    try {
+      await axios.post('http://localhost:5000/api/questions/test-attempts', {
+        participantName: userName,
+        skill,
+        score: finalScore,
+      });
+      console.log('Test attempt recorded successfully.');
+    } catch (error) {
+      console.error('Error recording test attempt:', error);
+    }
   };
 
   const handleSubmit = () => {
