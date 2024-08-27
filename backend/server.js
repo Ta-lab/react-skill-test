@@ -17,6 +17,10 @@ const questionRoutes = require('./routes/questionRoutes');
 // Use routes
 app.use('/api/questions', questionRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend service!');
+});
+
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
