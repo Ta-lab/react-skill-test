@@ -9,6 +9,8 @@ const QuestionSetup = ({ skill, setView }) => {
   const [message, setMessage] = useState('');
   const backButtonRef = useRef(null);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
     newOptions[index] = value;
@@ -21,11 +23,11 @@ const QuestionSetup = ({ skill, setView }) => {
       setTimeout(() => setMessage(''), 3000);
       return;
     }
-    
+
 
     const payload = { skill, question, options, correctAnswer };
     try {
-      const response = await axios.post('http://localhost:5000/api/questions', payload);
+      const response = await axios.post(`${API_URL}/api/questions`, payload);
       setMessage(response.data.message);
       setTimeout(() => {
         setMessage('');

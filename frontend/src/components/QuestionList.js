@@ -7,10 +7,12 @@ const QuestionList = ({ skill, setView }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [deleteIndex, setDeleteIndex] = useState(null);
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/questions?skill=${skill}`);
+                const response = await axios.get(`${API_URL}/api/questions?skill=${skill}`);
                 setQuestions(response.data);
             } catch (error) {
                 console.error('Error fetching questions:', error);
@@ -22,7 +24,7 @@ const QuestionList = ({ skill, setView }) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/questions/${skill}/${deleteIndex}`);
+            await axios.delete(`${API_URL}/api/questions/${skill}/${deleteIndex}`);
             setQuestions(questions.filter((_, i) => i !== deleteIndex));
             setShowConfirm(false); // Close the confirmation modal after deletion
         } catch (error) {

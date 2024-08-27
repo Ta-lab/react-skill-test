@@ -12,6 +12,12 @@ const UserInfo = ({ setUser, setRole, setView }) => {
   };
 
   const handleSubmit = () => {
+    if (!selectedRole) {
+      setMessage('Please select a role.');
+      setTimeout(() => setMessage(''), 3000);
+      return;
+    }
+
     if (selectedRole === 'taker' && !name.trim()) {
       setMessage('Please enter your name.');
       setTimeout(() => setMessage(''), 3000);
@@ -61,11 +67,10 @@ const UserInfo = ({ setUser, setRole, setView }) => {
                 placeholder="Enter your name"
                 isInvalid={!name.trim() && message}
               />
-              <Form.Control.Feedback type="invalid">
-                {message}
-              </Form.Control.Feedback>
             </Form.Group>
           )}
+
+          {message && <div className="alert alert-danger mb-3 text-center">{message}</div>}
 
           <Button onClick={handleSubmit} variant="primary" className="w-100">
             Submit

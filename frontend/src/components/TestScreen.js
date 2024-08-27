@@ -11,10 +11,12 @@ const TestScreen = ({ skill, userName, setView }) => {
   const [submitted, setSubmitted] = useState(false);
   const [viewAnswers, setViewAnswers] = useState(false);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/questions', {
+        const response = await axios.get(`${API_URL}/api/questions`, {
           params: { skill },
         });
         setQuestions(response.data);
@@ -43,7 +45,7 @@ const TestScreen = ({ skill, userName, setView }) => {
 
   const recordTestAttempt = async (finalScore) => {
     try {
-      await axios.post('http://localhost:5000/api/questions/test-attempts', {
+      await axios.post(`${API_URL}/api/questions/test-attempts`, {
         participantName: userName,
         skill,
         score: finalScore,
@@ -55,12 +57,12 @@ const TestScreen = ({ skill, userName, setView }) => {
   };
 
   const handleSubmit = () => {
-    setShowConfirm(true); // Show the confirmation dialog
+    setShowConfirm(true);
   };
 
   const handleConfirm = () => {
-    setShowConfirm(false); // Close the confirmation dialog
-    calculateScore(); // Calculate the score
+    setShowConfirm(false);
+    calculateScore();
   };
 
   return (

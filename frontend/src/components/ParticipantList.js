@@ -7,10 +7,12 @@ const ParticipantList = ({ setView }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [participantIndexToDelete, setParticipantIndexToDelete] = useState(null);
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchParticipants = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/questions/test-attempts-list');
+                const response = await axios.get(`${API_URL}/api/questions/test-attempts-list`);
                 setParticipants(response.data);
             } catch (error) {
                 console.error('Error fetching participants:', error);
@@ -21,7 +23,7 @@ const ParticipantList = ({ setView }) => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/questions/test-attempts/participants/${participantIndexToDelete}`);
+            await axios.delete(`${API_URL}/api/questions/test-attempts/participants/${participantIndexToDelete}`);
             setParticipants(participants.filter((_, index) => index !== participantIndexToDelete));
             setShowConfirm(false);
         } catch (error) {
