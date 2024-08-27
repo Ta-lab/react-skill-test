@@ -31,8 +31,8 @@ const QuestionList = ({ skill, setView }) => {
     };
 
     const confirmDelete = (index) => {
-        setDeleteIndex(index); // Set the index of the question to be deleted
-        setShowConfirm(true);  // Show the confirmation modal
+        setDeleteIndex(index);
+        setShowConfirm(true); 
     };
 
     return (
