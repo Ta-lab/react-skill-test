@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <Container className="mt-0">
+    <Container className="mt-5">
       {!user ? (
         <UserInfo setUser={setUser} setRole={setRole} setView={setView} />
       ) : (
