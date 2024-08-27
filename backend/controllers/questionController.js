@@ -46,3 +46,14 @@ exports.recordTestAttempt = (req, res) => {
 exports.getParticipants = (req, res) => {
   res.status(200).json(testAttempts);
 };
+
+exports.deleteParticipant = (req, res) => {
+  const { index } = req.params;
+  console.log('Attempting to delete participant at index:', index);
+  if (index >= 0 && index < testAttempts.length) {
+    testAttempts.splice(index, 1);
+    res.status(200).json({ message: 'Participant score deleted successfully.' });
+  } else {
+    res.status(404).json({ message: 'Invalid index.' });
+  }
+};
